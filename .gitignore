@@ -1,4 +1,11 @@
 ########################################
+# INTERNAL NOTES (not for public repo)
+########################################
+# Working notes / AI-collaboration context. Kept local across dev
+# sessions; not intended as public-facing project documentation.
+MealGraph_Project_Context.md
+
+########################################
 # OS / SYSTEM FILES
 ########################################
 .DS_Store

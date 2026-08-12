@@ -1,0 +1,6 @@
+# Dependencies are added as each phase of the project actually
+# begins (see MealGraph_Project_Context.md for phase sequencing) —
+# not pre-declared for planned-but-unbuilt components.
+
+# Data pipeline (Phase 1)
+pandas==3.0.1

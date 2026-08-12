@@ -54,7 +54,7 @@ This creates a **self-correcting AI system**, similar to real-world production A
 
 ### Backend
 
-* ASP.NET Core (.NET 8) / FastAPI
+* FastAPI
 * REST APIs
 
 ### Data & ML
@@ -81,6 +81,8 @@ This creates a **self-correcting AI system**, similar to real-world production A
 
 * Food.com Recipes Dataset (Kaggle)
 * USDA FoodData Central (nutrition data)
+
+Nutrition field semantics (column order, units, and known estimation limits) are documented in [`data-pipeline/NUTRITION_COLUMNS.md`](data-pipeline/NUTRITION_COLUMNS.md).
 
 ---
 
@@ -128,15 +130,47 @@ git clone https://github.com/SamJamZzz/MealGraph.git
 cd MealGraph
 ```
 
-### 2. Set up environment
+---
+
+### 2. Set up Python environment
+
+#### Create virtual environment
+
+```bash
+python3.11 -m venv .venv
+```
+
+#### Activate it
+
+```bash
+source .venv/bin/activate
+```
+
+#### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run API
+---
+
+### 3. Verify setup
 
 ```bash
-cd api
-python main.py
+python -c "import pandas as pd; print(pd.__version__)"
 ```
+
+---
+
+### 4. Run the data pipeline
+
+```bash
+cd data-pipeline/scripts
+python parse_recipes.py
+```
+
+This parses the raw Food.com dataset and writes a processed copy to `data-pipeline/processed/`.
+
+---
+
+*The API (`api/`) hasn't been implemented yet — data pipeline work is currently in progress. This section will be updated once `api/main.py` exists.*
