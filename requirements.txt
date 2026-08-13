@@ -4,3 +4,5 @@
 
 # Data pipeline (Phase 1)
 pandas==3.0.1
+requests==2.32.5
+python-dotenv==1.2.2
