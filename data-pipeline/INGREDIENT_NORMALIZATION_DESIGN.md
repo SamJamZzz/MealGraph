@@ -23,7 +23,8 @@ Given the concentration numbers, the highest-leverage approach isn't a single cl
 - **Naive substring/keyword grouping** (e.g. merge every string containing `"chicken"`) — confirmed unsafe in Step 4: it would merge genuinely different ingredients that share a word (`"chicken breast"` vs. `"chicken broth"`).
 - **Full automated fuzzy-matching/clustering across all 14,942 strings** — not ruled out forever, but not justified yet: the concentration data shows a much cheaper approach (curate the head) captures most of the value first.
 
-## Open for Step 6 (implementation)
+## Implementation (Step 6 — `build_ingredient_mapping.py`)
 
-- Exact mechanics of the curated mapping (a lookup table? a small reviewed CSV? committed to the repo either way for reproducibility).
-- Plural handling was deliberately not attempted here (no stemmer added — would be a new dependency, not decided yet) and remains a known gap in the raw vocabulary count.
+- `ingredients_normalized` column added to the processed dataset: each recipe's `ingredients_p` list with safe modifier-stripping applied per-item. Kept alongside `ingredients_p` (not replacing it) — the raw form is still needed as the join key back to the original data.
+- `ingredient_mapping_draft.csv` generated in `data-pipeline/processed/` (gitignored — it's a working artifact, not a finished dataset): the top 1,000 raw ingredient strings by frequency, each with an automated `canonical_name` guess and a `reviewed` boolean defaulting to `False` for every row.
+- **This mapping is explicitly a draft, not a finished result.** Spot-checking the top of the real output confirms the Step 5 finding directly: `garlic` (18,087 mentions) and `garlic cloves` (25,748 mentions) remain two separate rows, as do `egg` (17,304) and `eggs` (33,761) — both cases the automated pass can't resolve (plural handling and unit-word stripping beyond the safe modifier list were both explicitly deferred, not silently solved). Turning this into a real canonical mapping needs a human to fill in `canonical_name` correctly and flip `reviewed=True` — that review has not happened yet.
